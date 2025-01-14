@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 namespace InventoryMgmt.Model
 {
+
     public class Product
+
     {
 
         public int ProductID { get; set; }
