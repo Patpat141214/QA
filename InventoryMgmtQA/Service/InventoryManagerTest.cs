@@ -214,6 +214,7 @@ namespace InventoryMgmtQA.Service
 
                 //successsfully add product
                 Assert.IsTrue(sw.ToString().Contains("success"));
+                //removing the product is invalid since ID 2 does not exist, so the pass will fail
                 Assert.IsFalse(sw.ToString().Contains("success"));
             }
         }

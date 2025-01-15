@@ -86,6 +86,7 @@ namespace InventoryMgmtQA.Model
             bool isProductValid = Validator.TryValidateObject(product, context, results, true);
             Debug.WriteLine(isProductValid.ToString());
             // 0 qty is accepted, even in the model says that qty is >= to 1
+            //assertion returned false
             Assert.IsFalse (isProductValid);
         }
 
@@ -108,6 +109,7 @@ namespace InventoryMgmtQA.Model
             Debug.WriteLine(isProductValid.ToString());
 
             // 0 price is accepted, even in the model says that price is >= to 1
+            //assertion returned false
             Assert.IsFalse(isProductValid);
         }
         [TestMethod]
