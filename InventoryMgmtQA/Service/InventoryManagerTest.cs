@@ -404,5 +404,27 @@ namespace InventoryMgmtQA.Service
                 Assert.IsFalse(sw.ToString().Contains("success"));
             }
         }
+
+        [TestMethod]
+        //Work by Patrick Feniza
+        public void TestGetValueWithoutProducts()
+        {
+            using (StringWriter sw = new StringWriter())
+            {
+                //if we not add product, no id will be generated.
+                Console.SetOut(sw);
+
+                // get id to remove the product
+                _inventoryManager.GetTotalValue(
+
+                );
+
+                Debug.WriteLine(sw.ToString());
+
+                //invalid, since there are no products added
+                //sw does not contain 'success' which pass the test
+                Assert.IsFalse(sw.ToString().Contains("success"));
+            }
+        }
     }
 }
