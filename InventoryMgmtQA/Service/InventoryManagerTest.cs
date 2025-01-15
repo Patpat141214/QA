@@ -48,6 +48,7 @@ namespace InventoryMgmtQA.Service
                     1,
                     -1.0M
                 );
+                Debug.WriteLine(sw.ToString());
                 Assert.IsFalse(sw.ToString().Contains("success"));
             }
         }
@@ -83,6 +84,7 @@ namespace InventoryMgmtQA.Service
                     1,
                     1.23M
                 );
+                Debug.WriteLine(sw.ToString());
                 //Blank/null vaue in product name is invaliid
                 //the assertion is false. The test will pass if sw does not contain 'success'
                 Assert.IsFalse(sw.ToString().Contains("success"));
@@ -209,18 +211,16 @@ namespace InventoryMgmtQA.Service
                     2
                 );
                 Debug.WriteLine(sw.ToString());
-                // removing product, but id 2 does not exist
-                //the assertion is true. The test will pass if sw does contain 'Product not found, please try again'
-                Assert.IsTrue(sw.ToString().Contains("Product not found, please try again"));
 
                 //successsfully add product
                 Assert.IsTrue(sw.ToString().Contains("success"));
+                Assert.IsFalse(sw.ToString().Contains("success"));
             }
         }
 
         [TestMethod]
         //Work by Patrick Feniza
-        public void TestUpdateProduct()
+        public void TestAddingAndUpdatingProduct()
         {
             using (StringWriter sw = new StringWriter())
             {
@@ -231,7 +231,7 @@ namespace InventoryMgmtQA.Service
                   1,
                   1.23M
               );
-                // get id to remove the product
+                // get id to update the product and declare qty
                 _inventoryManager.UpdateProduct(
                     1,
                     5
@@ -263,7 +263,7 @@ namespace InventoryMgmtQA.Service
                  5,
                  1.23M
              );
-                // get id to remove the product
+                //fetch all products
                 _inventoryManager.ListProducts(
                   
                 );
@@ -288,11 +288,12 @@ namespace InventoryMgmtQA.Service
                   6.23M
               );
 
+                //update product
                 _inventoryManager.UpdateProduct(
                  1,
                  5
              );
-                // get id to remove the product
+                //fetch all product
                 _inventoryManager.ListProducts(
 
                 );
@@ -317,7 +318,7 @@ namespace InventoryMgmtQA.Service
                   6.23M
               );
                 _inventoryManager.AddNewProduct(
-                  "TestProduct",
+                  "TestProduct1",
                   4,
                   7.23M
               );
@@ -329,7 +330,7 @@ namespace InventoryMgmtQA.Service
                 _inventoryManager.RemoveProduct(
                  2                
              );
-                // get id to remove the product
+                //fetch all products
                 _inventoryManager.ListProducts(
 
                 );
@@ -342,7 +343,7 @@ namespace InventoryMgmtQA.Service
 
         [TestMethod]
         //Work by Patrick Feniza
-        public void TestGetTotalValueAndListOfProducts()
+        public void TestGetTotalValueOfManyProducts()
         {
             using (StringWriter sw = new StringWriter())
             {
@@ -369,10 +370,8 @@ namespace InventoryMgmtQA.Service
                8,
                50.23M
            );
-                // get id to remove the product
-                _inventoryManager.ListProducts(
-
-                );
+      
+                //get the sum of all products prices
                 _inventoryManager.GetTotalValue(
 
                 );
@@ -389,19 +388,19 @@ namespace InventoryMgmtQA.Service
         {
             using (StringWriter sw = new StringWriter())
             {
-                //if we not add product, no id will be generated.
+               
                 Console.SetOut(sw);
                 
-                // get id to remove the product
+                 //fetch all products
                 _inventoryManager.ListProducts(
 
                 );
               
                 Debug.WriteLine(sw.ToString());
 
-                //invalid, since there are no products added
-                //sw does not contain 'success' which pass the test
-                Assert.IsFalse(sw.ToString().Contains("success"));
+                
+                //sw contain 'No products in here' which pass the test
+                Assert.IsTrue(sw.ToString().Contains("No products in here"));
             }
         }
 
@@ -411,7 +410,7 @@ namespace InventoryMgmtQA.Service
         {
             using (StringWriter sw = new StringWriter())
             {
-                //if we not add product, no id will be generated.
+              
                 Console.SetOut(sw);
 
                 // get id to remove the product
@@ -423,7 +422,7 @@ namespace InventoryMgmtQA.Service
 
                 //invalid, since there are no products added
                 //sw does not contain 'success' which pass the test
-                Assert.IsFalse(sw.ToString().Contains("success"));
+                Assert.IsTrue(sw.ToString().Contains("Total value of inventory: 0.00"));
             }
         }
     }
